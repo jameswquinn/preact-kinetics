@@ -374,7 +374,7 @@ __tests__/
 ```markdown
 # Preact Kinetics
 
-A powerful animation library for Preact, inspired by react-spring, with full TypeScript support.
+Preact Kinetics is a powerful animation library for Preact, inspired by react-spring. It provides a set of hooks and utilities to create fluid, physics-based animations with ease.
 
 ## Installation
 
@@ -382,23 +382,89 @@ A powerful animation library for Preact, inspired by react-spring, with full Typ
 npm install preact-kinetics
 ```
 
-## Usage
+## Quick Start
 
-```tsx
+```jsx
 import { h } from 'preact';
 import { useSpring, animated } from 'preact-kinetics';
 
 function AnimatedComponent() {
   const props = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: 1 },
+    from: { opacity: 0, transform: 'translate3d(0,-40px,0)' },
+    to: { opacity: 1, transform: 'translate3d(0,0px,0)' },
   });
 
   return <animated.div style={props}>Hello, Preact Kinetics!</animated.div>;
 }
 ```
 
-For more detailed usage and API documentation, please refer to our [full README](https://github.com/yourusername/preact-kinetics).
+## API Reference
+
+### useSpring
+
+Creates a spring animation.
+
+```jsx
+const props = useSpring({
+  from: { opacity: 0 },
+  to: { opacity: 1 },
+  config: { tension: 300, friction: 10 },
+});
+```
+
+### useTransition
+
+Creates transitions for list items.
+
+```jsx
+const transitions = useTransition(items, {
+  from: { opacity: 0 },
+  enter: { opacity: 1 },
+  leave: { opacity: 0 },
+});
+```
+
+### useTrail
+
+Creates a trail animation with multiple items.
+
+```jsx
+const trail = useTrail(3, {
+  from: { opacity: 0, transform: 'scale(0.8)' },
+  to: { opacity: 1, transform: 'scale(1)' },
+});
+```
+
+### useChain
+
+Chains multiple animations together.
+
+```jsx
+const springRef = useRef();
+const transitionRef = useRef();
+
+useChain([springRef, transitionRef], [0, 0.5]);
+```
+
+### animated
+
+A higher-order component for creating animated elements.
+
+```jsx
+const AnimatedDiv = animated('div');
+```
+
+### config
+
+Preset configurations for common animation types.
+
+```jsx
+import { config } from 'preact-kinetics';
+
+useSpring({ config: config.wobbly });
+```
+
+For more detailed usage and examples, please refer to our [documentation](https://github.com/yourusername/preact-kinetics/docs).
 
 ## License
 
